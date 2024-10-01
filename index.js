@@ -24,8 +24,22 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/:date", function (req, res) {
+app.get("/api/", function (req, res) {
+  console.log("No date");
+  let utc = 'unix';
+  let unix = 0;
+  let data = {};
+  let curr_time = Date.now();
+    unix = curr_time;
+    let curr_utc = new Date(unix);
+    utc = curr_utc.toUTCString();
 
+  data = {"unix": unix, "utc": utc};
+  res.json(data);
+});
+
+app.get("/api/:date", function (req, res) {
+  console.log(req.params);
   let date = req.params.date;
   let utc = 'unix';
   let unix = 0;
@@ -49,7 +63,7 @@ app.get("/api/:date", function (req, res) {
   }
   else{
     let curr_time = Date.now();
-    console.log(curr_time)
+    console.log("Currtime" + curr_time)
     unix = curr_time;
     let curr_utc = new Date(unix);
     utc = curr_utc.toUTCString();
